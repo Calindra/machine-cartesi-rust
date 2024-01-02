@@ -2,3 +2,11 @@
 name = "machine-cartesi-rust"
 version = "0.1.0"
 edition = "2021"
+
+[dependencies]
+prost = "0.12.3"
+tokio = { version = "1.19.2", features = ["macros", "rt-multi-thread"] }
+tonic = "0.10.2"
+
+[build-dependencies]
+tonic-build = "0.10.2"
