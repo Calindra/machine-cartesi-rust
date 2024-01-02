@@ -6,4 +6,4 @@ else
     exit 1
 fi
 
-docker build --progress=plain -t machine-cartesi-rust:latest .
+docker build -t machine-cartesi-rust:latest .
