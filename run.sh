@@ -7,4 +7,4 @@ docker run -it --rm -h playground \
     -v `pwd`:/home/$(id -u -n) \
     -w /home/$(id -u -n) \
     -p 50051:8000 \
-    cartesi/playground:0.6.0 "/opt/cartesi/bin/remote-cartesi-machine --server-address=localhost:8000"
+    cartesi/playground:0.6.0 /bin/bash -c "/opt/cartesi/bin/remote-cartesi-machine --server-address=localhost:8000"
