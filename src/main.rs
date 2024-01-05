@@ -30,9 +30,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let request = Request::new(Void::default());
     let response = client.get_version(request).await?;
 
-    let version = response.into_inner().version.expect("Version not found");
+    let version = response
+        .into_inner()
+        .version
+        .map(|v| format!("{}.{}.{}", v.major, v.minor, v.patch))
+        .unwrap_or("unknown".to_string());
 
-    println!("Connected: remote version is {}.{}.{}", version.major, version.minor, version.patch);
+    println!("Connected: remote version is {}", version);
 
     // read iflags_H and iflags_Y
 
