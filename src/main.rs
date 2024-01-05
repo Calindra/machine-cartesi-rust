@@ -1,6 +1,5 @@
-use cartesi_machine::machine_client::MachineClient;
-use server_state::GetStateRequest;
-use tonic::{transport::Channel, Request};
+use cartesi_machine::{machine_client::MachineClient, Void};
+use tonic::Request;
 
 pub mod versioning {
     tonic::include_proto!("versioning");
@@ -18,23 +17,21 @@ pub mod cartesi_machine {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let machine = MachineClient::connect("http://[::1]:50051").await?;
+    let mut client = MachineClient::connect("http://[::1]:50051").await?;
 
     println!("Connected");
 
-    let response = Request::new(GetStateRequest {
-        json_initial_state: String::from("{}"),
-    });
+    // let request = Request::new(Void::default());
+    // let response = client.get_default_config(request).await?;
 
-    println!("Requesting state {:?}", response);
+    // println!("Configuration={:?}", response);
 
+    let request = Request::new(Void::default());
+    let response = client.get_version(request).await?;
 
-    // let response = client
-    //     .get_status(request)
-    //     .await?
-    //     .into_inner();
+    let version = response.into_inner().version;
 
-    // println!("RESPONSE={:?}", response);
+    println!("Version={:?}", version);
 
     Ok(())
 }
