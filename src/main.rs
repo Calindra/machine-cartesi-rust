@@ -18,7 +18,7 @@ pub mod cartesi_machine {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "http://[::1]:50051";
-    let mut client = MachineClient::connect(addr).await?;
+    let mut remote = MachineClient::connect(addr).await?;
 
     println!("Connecting to remote cartesi machine at {}", addr);
 
@@ -28,7 +28,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // println!("Configuration={:?}", response);
 
     let request = Request::new(Void::default());
-    let response = client.get_version(request).await?;
+    let response = remote.get_version(request).await?;
 
     let version = response
         .into_inner()

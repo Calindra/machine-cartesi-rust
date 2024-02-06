@@ -13,7 +13,8 @@ RUN \
   --mount=type=cache,target=/var/lib/apt,sharing=locked \
   apt-get update && \
   apt-get install -y --no-install-recommends \
-  g++-riscv64-linux-gnu=4:12.2.0-5
+  g++-riscv64-linux-gnu=4:12.2.0-5 \
+  protobuf-compiler=3.21.12-3
 
 RUN rustup target add riscv64gc-unknown-linux-gnu
 
@@ -45,7 +46,7 @@ RUN tar \
 
 RUN genext2fs \
   -f \
-  -b 8192 \
+  -b 16384 \
   -a machine.tar \
   machine.ext2 \
   && rm -rf machine.tar
