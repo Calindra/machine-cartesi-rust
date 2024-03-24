@@ -28,6 +28,8 @@ RUN \
   --mount=type=cache,target=/usr/local/cargo/registry/,sharing=locked \
   cargo build --release --target=riscv64gc-unknown-linux-gnu
 
+# Change from playground to ubuntu with riskv64
+
 FROM cartesi/playground:0.6.0 as playground
 
 WORKDIR /usr/src/app
